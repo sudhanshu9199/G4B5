@@ -1,0 +1,699 @@
+/* Game Styles for Algorithm Adventures */
+
+/* Map Layout */
+.map-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.map-path {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  width: 100%;
+  max-width: 600px;
+  margin: 40px auto;
+}
+
+/* Connect nodes visually */
+.map-path::before {
+  content: '';
+  position: absolute;
+  top: 50px;
+  bottom: 50px;
+  left: 50%;
+  width: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px dashed rgba(99, 102, 241, 0.3);
+  transform: translateX(-50%);
+  z-index: 0;
+}
+
+.map-node-wrapper {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.map-node {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 800;
+  cursor: pointer;
+  border: 4px solid var(--color-primary);
+  background: var(--color-bg-dark);
+  box-shadow: var(--shadow-glow);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.map-node.completed {
+  background: var(--color-success);
+  border-color: #a7f3d0;
+  box-shadow: var(--shadow-glow-success);
+}
+
+.map-node.locked {
+  background: #334155;
+  border-color: #475569;
+  box-shadow: none;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.map-node:not(.locked):hover {
+  transform: scale(1.15) rotate(5deg);
+}
+
+.node-label {
+  position: absolute;
+  bottom: -32px;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 4px 16px;
+  border-radius: 20px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Algy Assistant Speeches */
+.assistant-box {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 24px;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto 30px;
+}
+
+.assistant-avatar {
+  font-size: 3.5rem;
+  animation: floatAvatar 3s ease-in-out infinite;
+}
+
+@keyframes floatAvatar {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.speech-bubble {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 18px 24px;
+  border-radius: 20px 20px 20px 0;
+  position: relative;
+  flex-grow: 1;
+  text-align: left;
+}
+
+.speech-bubble::before {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: -12px;
+  border-width: 12px 12px 0 0;
+  border-style: solid;
+  border-color: rgba(255, 255, 255, 0.05) transparent;
+  display: block;
+  width: 0;
+}
+
+/* Dashboard Progress */
+.progress-bar-container {
+  width: 100%;
+  max-width: 800px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-accent) 0%, var(--color-success) 100%);
+  transition: width 0.5s ease;
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+}
+
+/* Definitions Hub (Level 1) */
+.cards-container {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 20px;
+  perspective: 1000px;
+}
+
+.card-wrapper {
+  width: 340px;
+  height: 460px;
+  position: relative;
+  cursor: pointer;
+}
+
+.definition-card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.definition-card.flipped {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 24px;
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  border: 2px solid var(--card-border);
+}
+
+.card-front {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+}
+
+.card-front:hover {
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-glow-accent);
+}
+
+.card-back {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.9) 100%);
+  transform: rotateY(180deg);
+}
+
+.quiz-option {
+  width: 100%;
+  padding: 12px 20px;
+  margin-top: 10px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--color-text-main);
+  text-align: left;
+  font-size: 1.05rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.quiz-option:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.quiz-option.correct {
+  background: rgba(16, 185, 129, 0.2);
+  border-color: var(--color-success);
+  color: #a7f3d0;
+}
+
+.quiz-option.incorrect {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: var(--color-danger);
+  color: #fca5a5;
+}
+
+/* Flowchart Fixer (Level 2) */
+.flowchart-wrapper {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+
+.flowchart-diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.flowchart-node {
+  background: rgba(30, 41, 59, 0.85);
+  border: 2px solid var(--card-border);
+  border-radius: 16px;
+  padding: 16px 24px;
+  width: 100%;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.15rem;
+  transition: all 0.3s ease;
+}
+
+.flowchart-node.active {
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-glow-accent);
+}
+
+.flowchart-node.decision {
+  background: rgba(168, 85, 247, 0.2);
+  border-color: var(--color-secondary);
+  clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
+  padding: 20px 30px;
+}
+
+.flowchart-actions {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  justify-content: center;
+}
+
+.flowchart-btn {
+  padding: 12px 28px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-radius: 12px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.flowchart-btn.yes {
+  background: var(--color-success);
+  color: white;
+  box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+}
+
+.flowchart-btn.no {
+  background: var(--color-warning);
+  color: white;
+  box-shadow: 0 4px 10px rgba(249, 115, 22, 0.3);
+}
+
+.flowchart-btn:active {
+  transform: scale(0.95);
+}
+
+.lamp-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 30px;
+  border-radius: 24px;
+  min-width: 250px;
+}
+
+.lamp-svg {
+  width: 150px;
+  height: 200px;
+  transition: filter 0.5s ease;
+}
+
+.lamp-svg.on {
+  filter: drop-shadow(0 0 25px rgba(253, 224, 71, 0.8));
+}
+
+/* Coding Cycle (Level 3) */
+.cycle-game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  padding: 20px;
+}
+
+.cycle-wheel-wrapper {
+  position: relative;
+  width: 320px;
+  height: 320px;
+}
+
+.cycle-wheel {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 10px solid var(--card-border);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.cycle-wheel.rotating {
+  animation: rotateWheel 8s linear infinite;
+}
+
+@keyframes rotateWheel {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.cycle-segment {
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  transform-origin: 100% 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.cycle-segment:nth-child(1) { transform: rotate(0deg); background: rgba(99, 102, 241, 0.15); border-right: 2px solid rgba(255,255,255,0.1); border-bottom: 2px solid rgba(255,255,255,0.1); }
+.cycle-segment:nth-child(2) { transform: rotate(90deg); background: rgba(168, 85, 247, 0.15); border-right: 2px solid rgba(255,255,255,0.1); border-bottom: 2px solid rgba(255,255,255,0.1); }
+.cycle-segment:nth-child(3) { transform: rotate(180deg); background: rgba(6, 182, 212, 0.15); border-right: 2px solid rgba(255,255,255,0.1); border-bottom: 2px solid rgba(255,255,255,0.1); }
+.cycle-segment:nth-child(4) { transform: rotate(270deg); background: rgba(16, 185, 129, 0.15); border-right: 2px solid rgba(255,255,255,0.1); border-bottom: 2px solid rgba(255,255,255,0.1); }
+
+.cycle-label-slot {
+  width: 140px;
+  height: 50px;
+  border: 2px dashed rgba(255,255,255,0.2);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  background: rgba(0,0,0,0.2);
+}
+
+.cycle-label-slot.filled {
+  border-style: solid;
+  border-color: var(--color-primary);
+  background: var(--card-bg);
+}
+
+.draggable-labels-container {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.cycle-label-draggable {
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 700;
+  background: var(--color-primary);
+  box-shadow: var(--shadow-md);
+  cursor: grab;
+  color: white;
+}
+
+.cycle-label-draggable:active {
+  cursor: grabbing;
+}
+
+/* Bed Maker (Level 4) & Common Drag-and-Drop puzzles */
+.order-puzzle-container {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+
+.draggable-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 450px;
+  width: 100%;
+}
+
+.draggable-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 16px 20px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: grab;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.draggable-item:hover {
+  border-color: var(--color-primary);
+}
+
+.item-index-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+
+.item-drag-handle {
+  color: var(--color-text-muted);
+  cursor: grab;
+}
+
+.bed-preview-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  border-radius: 24px;
+  min-width: 320px;
+  max-width: 450px;
+  flex-grow: 1;
+}
+
+.bed-canvas {
+  width: 100%;
+  height: 220px;
+  position: relative;
+  margin: 20px 0;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #334155;
+}
+
+.bed-sheet {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 70%;
+  background: #cbd5e1;
+  border-top: 4px solid #94a3b8;
+  border-radius: 8px 8px 0 0;
+  z-index: 10;
+  transition: all 0.6s ease;
+}
+
+.bed-pillows {
+  position: absolute;
+  top: 15%;
+  left: 10%;
+  right: 10%;
+  display: flex;
+  justify-content: space-around;
+  z-index: 5;
+  transition: all 0.6s ease;
+}
+
+.bed-pillow {
+  width: 35%;
+  height: 40px;
+  background: #f1f5f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+  border: 1px solid #cbd5e1;
+  transition: all 0.6s ease;
+}
+
+.bed-spread {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 85%;
+  background: var(--color-primary);
+  border-top: 6px solid var(--color-secondary);
+  border-radius: 12px 12px 0 0;
+  z-index: 15;
+  transition: all 0.6s ease;
+}
+
+/* Tangled or bugged states for animation feedback */
+.bed-pillow.under-spread {
+  z-index: 12; /* under spread which is 15, but above sheet 10 */
+}
+
+.bed-pillow.over-spread {
+  z-index: 20; /* above spread */
+}
+
+/* Shoe Tyer (Level 5) Blocks Builder styling */
+.blocks-workspace {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 20px;
+  width: 100%;
+}
+
+.blocks-library, .blocks-canvas {
+  flex: 1;
+  min-width: 300px;
+  max-width: 480px;
+  padding: 24px;
+  border-radius: 20px;
+  min-height: 480px;
+  background: rgba(15, 23, 42, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.blocks-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 400px;
+  border-radius: 12px;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.code-block {
+  padding: 14px 20px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-family: var(--font-primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-left: 6px solid transparent;
+  box-shadow: var(--shadow-sm);
+  cursor: grab;
+}
+
+.code-block.control {
+  background: #f59e0b;
+  border-left-color: #d97706;
+}
+
+.code-block.action {
+  background: #10b981;
+  border-left-color: #059669;
+}
+
+.code-block.start-stop {
+  background: #6366f1;
+  border-left-color: #4f46e5;
+  cursor: not-allowed;
+}
+
+.shoe-anim-panel {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  background: #1e293b;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+}
+
+/* Paper Airplane Level (Level 6) */
+.paper-plane-scene {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  background: radial-gradient(circle at top, #1e293b, #0f172a);
+  border-radius: 24px;
+  overflow: hidden;
+  margin-top: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.plane-animation {
+  position: absolute;
+  top: 40%;
+  left: -100px;
+  font-size: 3.5rem;
+}
+
+.plane-animation.fly {
+  animation: planeFly 4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.plane-animation.crash {
+  animation: planeCrash 3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes planeFly {
+  0% { left: -100px; top: 70%; transform: rotate(-20deg) scale(0.6); }
+  30% { left: 30%; top: 30%; transform: rotate(-10deg) scale(1); }
+  60% { left: 60%; top: 40%; transform: rotate(15deg) scale(1); }
+  100% { left: 110%; top: 20%; transform: rotate(-5deg) scale(0.8); }
+}
+
+@keyframes planeCrash {
+  0% { left: -100px; top: 70%; transform: rotate(-25deg); }
+  35% { left: 40%; top: 20%; transform: rotate(0deg); }
+  60% { left: 60%; top: 35%; transform: rotate(45deg); }
+  100% { left: 75%; top: 95%; transform: rotate(90deg); filter: grayscale(1); }
+}
+
+/* Certificate Screen */
+.certificate-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 40px;
+  text-align: center;
+  max-width: 650px;
+  margin: 40px auto;
+  border: 4px solid var(--color-accent);
+  box-shadow: var(--shadow-glow-accent);
+  background: radial-gradient(circle at center, #1e1b4b 0%, #0f172a 100%);
+  border-radius: 32px;
+}
+
+.badge-spin {
+  font-size: 7rem;
+  animation: spinBadge 10s linear infinite;
+  filter: drop-shadow(0 0 20px rgba(6, 182, 212, 0.8));
+}
+
+@keyframes spinBadge {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
